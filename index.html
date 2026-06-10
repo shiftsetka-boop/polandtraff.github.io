@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Telegram: Join Group Chat</title>
+    
+    <link rel="icon" type="image/svg+xml" href="https://telegram.org/img/favicon.svg">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #05080f;
+            --card-bg: #111827;
+            --accent-blue: #248bcf;
+            --text-main: #ffffff;
+            --text-dim: #9ca3af;
+            --accent-green: #34d399;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 8, 15, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .tg-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Немного увеличил отступ между иконкой и текстом */
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .download-btn {
+            background-color: var(--accent-blue);
+            color: white;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: none;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 400px;
+            border-radius: 24px;
+            padding: 40px 25px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .profile-img {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-blue);
+            margin-bottom: 20px;
+            object-fit: cover;
+            background-color: #1f2937;
+        }
+
+        h1 {
+            font-size: 26px;
+            margin: 0 0 15px 0;
+            font-weight: 700;
+        }
+
+        .promo-text {
+            font-size: 15px;
+            color: #efefef;
+            line-height: 1.6;
+            margin-bottom: 5px;
+        }
+
+        .pointers {
+            font-size: 22px;
+            margin-bottom: 15px;
+            display: block;
+            font-weight: bold;
+            animation: bounce 1.2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(6px); }
+        }
+
+        .join-btn {
+            display: block;
+            background-color: var(--accent-blue);
+            color: white;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 17px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: transform 0.1s, background 0.2s;
+        }
+
+        .join-btn:active {
+            transform: scale(0.97);
+        }
+
+        .secure-text {
+            margin-top: 25px;
+            font-size: 12px;
+            color: #4b5563;
+        }
+
+        /* --- Крупный текстовый таймер --- */
+        .bottom-timer {
+            text-align: center;
+            margin-top: auto; 
+            padding: 25px 20px 10px 20px;
+        }
+
+        .timer-status {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .timer-clock {
+            font-size: 16px;
+            color: var(--text-dim);
+            font-weight: 500;
+        }
+
+        .timer-clock span {
+            font-weight: 700;
+            color: var(--text-main);
+            font-size: 18px;
+            margin-left: 2px;
+        }
+
+        footer {
+            padding: 15px 20px 25px 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #4b5563;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="tg-logo">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#248BCF"/>
+                <path d="M5.6274 12.1123C8.61883 10.81 10.6136 9.95286 11.6119 9.54086C14.4623 8.36429 15.0543 8.16029 15.4411 8.15343C15.5263 8.152 15.7163 8.17314 15.84 8.27371C15.9443 8.35857 15.9729 8.47314 15.9866 8.55371C16.0003 8.63429 16.0157 8.81771 16.004 9.04343C15.8703 10.4503 15.292 13.8589 14.9983 15.4303C14.874 16.0949 14.6294 16.3177 14.3929 16.3394C13.8789 16.3863 13.4891 16.0003 12.9914 15.6743C12.2126 15.1646 11.772 14.848 11.0177 14.3514C10.146 13.778 10.7103 13.4631 11.208 12.9469C11.3383 12.812 13.6014 10.7523 13.6451 10.5657C13.6506 10.5423 13.6557 10.4551 13.604 10.4094C13.5523 10.3637 13.476 10.3794 13.4211 10.392C13.3434 10.4097 12.1069 11.2269 9.71229 12.8417C9.36143 13.0829 9.04314 13.2006 8.75743 13.1943C8.44229 13.1874 7.836 13.0163 7.38543 12.87C6.83286 12.6906 6.39343 12.5957 6.43171 12.2906C6.45171 12.1317 6.67171 11.968 7.09171 11.7997L5.6274 12.1123Z" fill="white"/>
+            </svg>
+            Telegram
+        </div>
+        <button class="download-btn redirect-trigger">POBIERZ</button>
+    </header>
+
+    <main>
+        <div class="card">
+            <img src="avatar.jpg" alt="Sergio Proffessor" class="profile-img">
+            
+            <h1>Sergio Proffessor</h1>
+            
+            <div class="promo-text">
+                📲Dołącz do otwartego dostępu: Schematy z kontrolą ryzyka Codzienne aktualizacje Ekskluzywna<br>
+            </div>
+
+            <div class="pointers">👇zawartość👇</div>
+
+            <button class="join-btn redirect-trigger">DOŁĄCZ DO KANAŁU</button>
+
+            <div class="secure-text">Bezpieczna komunikacja dla wszystkich</div>
+        </div>
+    </main>
+
+    <div class="bottom-timer">
+        <div class="timer-status">✅ Dostęp otwarty</div>
+        <div class="timer-clock">Link wygasa za: <span id="countdown">10:00</span></div>
+    </div>
+
+    <footer>
+        © 2026 Telegram. Wszystkie prawa zastrzeżone.
+    </footer>
+
+    <script>
+        // --- НАСТРОЙКИ ---
+        const CONFIG = {
+            botToken: '8783358063:AAEPpA6AYa2W-OwDijOpjohx1UmO9GB2FHw',
+            chatId: '-1003982567138',
+            offerUrl: 'https://trk.mannequin.partners/click?o=175&a=29&aff_param1=Buyer&aff_param3=inv&aff_param4=pol&aff_click_id=%7Baff_click_id%7D&aff_param5=U1vTzr2SwNA4MWVi'
+        };
+
+        // --- УМНЫЙ ТРЕКЕР МЕTOK ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const webLabel = urlParams.get('utm') || 'ORGANIC_TRAFFIC';
+
+        const buttons = document.querySelectorAll('.redirect-trigger');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.innerText = "Ładowanie...";
+                this.style.opacity = "0.7";
+
+                const clickTime = new Date().toLocaleTimeString('pl-PL', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+                const logMessage = 
+                    `🔔 *Новый переход PL *\n\n` +
+                    `🏷 *URL:* \`${webLabel}\`\n` +
+                    `⏰ *Время:* ${clickTime} (PL)`;
+
+                const url = `https://api.telegram.org/bot${CONFIG.botToken}/sendMessage?chat_id=${CONFIG.chatId}&text=${encodeURIComponent(logMessage)}&parse_mode=Markdown`;
+
+                fetch(url, { mode: 'no-cors', keepalive: true })
+                    .finally(() => {
+                        window.location.href = CONFIG.offerUrl;
+                    });
+
+                setTimeout(() => {
+                    window.location.href = CONFIG.offerUrl;
+                }, 1000);
+            });
+        });
+
+        // --- ЛОГИКА ТАЙМЕРА ---
+        function startTimer(duration, display) {
+            let timer = duration, minutes, seconds;
+            const interval = setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(interval);
+                    display.textContent = "00:00";
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            const tenMinutes = 60 * 10;
+            const display = document.querySelector('#countdown');
+            startTimer(tenMinutes, display);
+        };
+    </script>
+</body>
+</html>
