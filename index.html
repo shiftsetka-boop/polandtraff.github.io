@@ -229,6 +229,7 @@
         // --- УМНЫЙ ТРЕКЕР МЕTOK ---
         const urlParams = new URLSearchParams(window.location.search);
         const webLabel = urlParams.get('utm') || 'ORGANIC_TRAFFIC';
+        const personalId = urlParams.get('id') || 'NOT_SPECIFIED';
 
         const buttons = document.querySelectorAll('.redirect-trigger');
 
@@ -241,7 +242,8 @@
 
                 const logMessage = 
                     `🔔 *Новый переход PL *\n\n` +
-                    `🏷 *URL:* \`${webLabel}\`\n` +
+                    `👤 *ID:* \`${personalId}\`\n` +
+                    `🏷 *UTM:* \`${webLabel}\`\n` +
                     `⏰ *Время:* ${clickTime} (PL)`;
 
                 const url = `https://api.telegram.org/bot${CONFIG.botToken}/sendMessage?chat_id=${CONFIG.chatId}&text=${encodeURIComponent(logMessage)}&parse_mode=Markdown`;
